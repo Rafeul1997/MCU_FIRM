@@ -54,6 +54,8 @@ void loop(){
 
 });
 
+/* TERMINAL */
+
 const terminal =
 document.getElementById(
   "terminal"
@@ -62,7 +64,7 @@ document.getElementById(
 function log(text){
 
   terminal.textContent +=
-  text + "\n";
+  text + "\\n";
 
   terminal.scrollTop =
   terminal.scrollHeight;
@@ -199,5 +201,40 @@ document.getElementById(
     );
 
   },2000);
+
+};
+
+/* DOWNLOAD BIN */
+
+document.getElementById(
+  "downloadBtn"
+).onclick = ()=>{
+
+  log(
+    "[INFO] Downloading BIN..."
+  );
+
+  const link =
+  document.createElement("a");
+
+  link.href =
+  "../firmware/esp32/blink.bin";
+
+  link.download =
+  "firmware.bin";
+
+  document.body.appendChild(
+    link
+  );
+
+  link.click();
+
+  document.body.removeChild(
+    link
+  );
+
+  log(
+    "[SUCCESS] BIN Download Started"
+  );
 
 };
