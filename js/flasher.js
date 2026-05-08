@@ -1,3 +1,15 @@
+let port;
+
+const connectBtn =
+document.getElementById(
+  "connectBtn"
+);
+
+const flashBtn =
+document.getElementById(
+  "flashBtn"
+);
+
 const progressBar =
 document.getElementById(
   "progressBar"
@@ -8,6 +20,11 @@ document.getElementById(
   "progressText"
 );
 
+const firmwareSelect =
+document.getElementById(
+  "firmwareSelect"
+);
+
 const logBox =
 document.getElementById(
   "log"
@@ -16,50 +33,129 @@ document.getElementById(
 function log(text){
 
   logBox.textContent +=
-    text + "\\n";
+    text + "\n";
 
   logBox.scrollTop =
     logBox.scrollHeight;
 
 }
 
-document.getElementById(
-  "flashBtn"
-).onclick = ()=>{
+/* CONNECT */
 
-  let progress = 0;
+connectBtn.onclick =
+async ()=>{
 
-  log(
-    "[INFO] Starting Upload..."
-  );
+  try{
 
-  const timer =
-  setInterval(()=>{
+    port =
+    await navigator.serial
+    .requestPort();
 
-    progress += 10;
+    await port.open({
 
-    progressBar.style.width =
-      progress + "%";
+      baudRate:115200
 
-    progressText.textContent =
-      progress + "%";
+    });
 
     log(
-      "[INFO] Uploading " +
-      progress +
-      "%"
+      "[SUCCESS] ESP32 Connected"
     );
 
-    if(progress >= 100){
+  }catch(err){
 
-      clearInterval(timer);
+    log(
+      "[ERROR] Connection Failed"
+    );
+
+    console.error(err);
+
+  }
+
+};
+
+/* FLASH */
+
+flashBtn.onclick =
+async ()=>{
+
+  if(!port){
+
+    alert(
+      "Connect ESP32 First"
+    );
+
+    return;
+
+  }
+
+  try{
+
+    log(
+      "[INFO] Loading Firmware..."
+    );
+
+    const firmwarePath =
+    firmwareSelect.value;
+
+    const response =
+    await fetch(
+      firmwarePath
+    );
+
+    const firmware =
+    await response.arrayBuffer();
+
+    log(
+      "[INFO] Firmware Loaded"
+    );
+
+    log(
+      "[INFO] Size: " +
+      firmware.byteLength +
+      " bytes"
+    );
+
+    /* FAKE PROGRESS FOR NOW */
+
+    let progress = 0;
+
+    const timer =
+    setInterval(()=>{
+
+      progress += 10;
+
+      progressBar.style.width =
+      progress + "%";
+
+      progressText.textContent =
+      progress + "%";
 
       log(
-        "[SUCCESS] Upload Complete"
+        "[INFO] Uploading " +
+        progress +
+        "%"
       );
 
-    }
+      if(progress >= 100){
 
-  },400);
+        clearInterval(timer);
+
+        log(
+          "[SUCCESS] Flash Complete"
+        );
+
+      }
+
+    },400);
+
+  }catch(err){
+
+    log(
+      "[ERROR] Flash Failed"
+    );
+
+    console.error(err);
+
+  }
 
 };
