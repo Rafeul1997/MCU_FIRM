@@ -2,11 +2,14 @@ body{
 
   margin:0;
 
-  background:#020617;
+  background:#0b1120;
 
   color:white;
 
-  font-family:Arial;
+  font-family:
+  Inter,
+  Arial,
+  sans-serif;
 
 }
 
