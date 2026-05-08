@@ -2,11 +2,14 @@ body{
 
   margin:0;
 
-  background:#020617;
+  background:#0b1120;
 
   overflow:hidden;
 
-  font-family:Arial;
+  font-family:
+  Inter,
+  Arial,
+  sans-serif;
 
 }
 
@@ -22,17 +25,19 @@ body{
 
 .topBar{
 
-  padding:20px;
+  padding:16px;
 
   display:flex;
 
-  gap:15px;
+  gap:12px;
+
+  background:#111827;
 
 }
 
 .topBar button{
 
-  padding:14px 20px;
+  padding:12px 20px;
 
   border:none;
 
