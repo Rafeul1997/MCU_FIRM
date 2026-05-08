@@ -37,6 +37,8 @@ body{
 
   border-bottom:1px solid #1e293b;
 
+  flex-wrap:wrap;
+
 }
 
 .topBar select{
@@ -67,11 +69,37 @@ body{
 
   cursor:pointer;
 
+  transition:0.2s;
+
 }
 
 .topBar button:hover{
 
   background:#1d4ed8;
+
+}
+
+#uploadBtn{
+
+  background:#f59e0b;
+
+}
+
+#uploadBtn:hover{
+
+  background:#d97706;
+
+}
+
+#downloadBtn{
+
+  background:#10b981;
+
+}
+
+#downloadBtn:hover{
+
+  background:#059669;
 
 }
 
