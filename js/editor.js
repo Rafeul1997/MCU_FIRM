@@ -6,6 +6,8 @@ let writer;
 
 let keepReading = false;
 
+let isConnected = false;
+
 let editor;
 
 /* MONACO */
@@ -75,53 +77,104 @@ function log(text){
 
 }
 
-/* CONNECT */
-
-async function connectBoard(){
-
-  try{
-
-    const baud =
-    parseInt(
-      document.getElementById(
-        "baudRate"
-      ).value
-    );
-
-    port =
-    await navigator.serial
-    .requestPort();
-
-    await port.open({
-
-      baudRate:baud
-
-    });
-
-    writer =
-    port.writable.getWriter();
-
-    log(
-      "[SUCCESS] Board Connected"
-    );
-
-    startSerialMonitor();
-
-  }catch(err){
-
-    log(
-      "[ERROR] Connection Failed"
-    );
-
-    console.error(err);
-
-  }
-
-}
+/* CONNECT / DISCONNECT */
 
 document.getElementById(
   "connectBtn"
-).onclick = connectBoard;
+).onclick = async ()=>{
+
+  const btn =
+  document.getElementById(
+    "connectBtn"
+  );
+
+  if(!isConnected){
+
+    try{
+
+      const baud =
+      parseInt(
+        document.getElementById(
+          "baudRate"
+        ).value
+      );
+
+      port =
+      await navigator.serial
+      .requestPort();
+
+      await port.open({
+
+        baudRate:baud
+
+      });
+
+      writer =
+      port.writable.getWriter();
+
+      isConnected = true;
+
+      btn.textContent =
+      "Disconnect";
+
+      log(
+        "[SUCCESS] Board Connected"
+      );
+
+      startSerialMonitor();
+
+    }catch(err){
+
+      log(
+        "[ERROR] Connection Failed"
+      );
+
+      console.error(err);
+
+    }
+
+  }else{
+
+    try{
+
+      keepReading = false;
+
+      if(reader){
+
+        await reader.cancel();
+
+      }
+
+      if(writer){
+
+        writer.releaseLock();
+
+      }
+
+      if(port){
+
+        await port.close();
+
+      }
+
+      isConnected = false;
+
+      btn.textContent =
+      "Connect";
+
+      log(
+        "[INFO] Board Disconnected"
+      );
+
+    }catch(err){
+
+      console.error(err);
+
+    }
+
+  }
+
+};
 
 /* RECONNECT */
 
@@ -137,13 +190,20 @@ document.getElementById(
 
     }
 
-    connectBoard();
+    isConnected = false;
+
+    document.getElementById(
+      "connectBtn"
+    ).textContent =
+    "Connect";
+
+    log(
+      "[INFO] Reconnecting..."
+    );
 
   }catch(err){
 
-    log(
-      "[ERROR] Reconnect Failed"
-    );
+    console.error(err);
 
   }
 
@@ -244,7 +304,7 @@ document.getElementById(
 
 };
 
-/* SEND SERIAL DATA */
+/* SEND SERIAL */
 
 document.getElementById(
   "sendBtn"
