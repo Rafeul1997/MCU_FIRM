@@ -28,12 +28,8 @@
 
       <select id="boardSelect">
 
-        <option>
+        <option value="esp32">
           ESP32
-        </option>
-
-        <option>
-          Arduino
         </option>
 
       </select>
@@ -56,8 +52,11 @@
 
       <select id="firmwareSelect">
 
-        <option>
+        <option value=
+        "../firmware/esp32/blink.bin">
+
           ESP32 Blink
+
         </option>
 
       </select>
@@ -65,12 +64,6 @@
       <button id="connectBtn">
 
         Connect Board
-
-      </button>
-
-      <button id="addFirmwareBtn">
-
-        Add Firmware
 
       </button>
 
@@ -113,6 +106,10 @@
     </div>
 
   </div>
+
+  <!-- ESPTOOL -->
+
+  <script src="https://unpkg.com/esptool-js@0.5.4/bundle.js"></script>
 
   <script src="../js/flasher.js"></script>
 
