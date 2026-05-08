@@ -64,7 +64,7 @@ document.getElementById(
 function log(text){
 
   terminal.textContent +=
-  text + "\\n";
+  text + "\n";
 
   terminal.scrollTop =
   terminal.scrollHeight;
