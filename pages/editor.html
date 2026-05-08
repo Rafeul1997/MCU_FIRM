@@ -23,25 +23,45 @@
 
     <div class="topBar">
 
+      <!-- BOARD SELECT -->
+
       <select id="boardSelect">
 
-        <option value="esp32">
-          ESP32
+        <option value="esp32:esp32:esp32">
+          ESP32 Dev Module
         </option>
 
-        <option value="esp32s3">
-          ESP32-S3
+        <option value="esp32:esp32:esp32s3">
+          ESP32-S3 Dev Module
         </option>
 
-        <option value="esp8266">
-          ESP8266
+        <option value="esp32:esp32:esp32c3">
+          ESP32-C3 Dev Module
         </option>
 
-        <option value="arduino_uno">
-          Arduino UNO
+        <option value="esp32:esp32:esp32c6">
+          ESP32-C6 Dev Module
+        </option>
+
+        <option value="esp32:esp32:esp32h2">
+          ESP32-H2 Dev Module
+        </option>
+
+        <option value="esp32:esp32:esp32cam">
+          ESP32-CAM
+        </option>
+
+        <option value="esp32:esp32:esp32wrover">
+          ESP32 Wrover Module
+        </option>
+
+        <option value="esp32:esp32:nodemcu-32s">
+          NodeMCU-32S
         </option>
 
       </select>
+
+      <!-- PARTITION -->
 
       <select id="partitionSelect">
 
@@ -63,6 +83,8 @@
 
       </select>
 
+      <!-- BUTTONS -->
+
       <button id="connectBtn">
         Connect Board
       </button>
@@ -77,6 +99,10 @@
 
       <button id="uploadBtn">
         Upload
+      </button>
+
+      <button id="downloadBtn">
+        Download BIN
       </button>
 
     </div>
