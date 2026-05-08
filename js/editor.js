@@ -2,6 +2,8 @@ let port;
 
 let reader;
 
+let writer;
+
 let keepReading = false;
 
 let editor;
@@ -75,11 +77,16 @@ function log(text){
 
 /* CONNECT */
 
-document.getElementById(
-  "connectBtn"
-).onclick = async ()=>{
+async function connectBoard(){
 
   try{
+
+    const baud =
+    parseInt(
+      document.getElementById(
+        "baudRate"
+      ).value
+    );
 
     port =
     await navigator.serial
@@ -87,9 +94,12 @@ document.getElementById(
 
     await port.open({
 
-      baudRate:115200
+      baudRate:baud
 
     });
+
+    writer =
+    port.writable.getWriter();
 
     log(
       "[SUCCESS] Board Connected"
@@ -107,6 +117,36 @@ document.getElementById(
 
   }
 
+}
+
+document.getElementById(
+  "connectBtn"
+).onclick = connectBoard;
+
+/* RECONNECT */
+
+document.getElementById(
+  "reconnectBtn"
+).onclick = async ()=>{
+
+  try{
+
+    if(port){
+
+      await port.close();
+
+    }
+
+    connectBoard();
+
+  }catch(err){
+
+    log(
+      "[ERROR] Reconnect Failed"
+    );
+
+  }
+
 };
 
 /* VERIFY */
@@ -116,7 +156,7 @@ document.getElementById(
 ).onclick = ()=>{
 
   log(
-    "[INFO] Code Verification Started"
+    "[INFO] Verification Started"
   );
 
   setTimeout(()=>{
@@ -135,45 +175,14 @@ document.getElementById(
   "compileBtn"
 ).onclick = ()=>{
 
-  const board =
-  document.getElementById(
-    "boardSelect"
-  ).value;
-
-  const partition =
-  document.getElementById(
-    "partitionSelect"
-  ).value;
-
-  const code =
-  editor.getValue();
-
   log(
-    "[INFO] Preparing Cloud Compile"
-  );
-
-  log(
-    "[INFO] Board: " + board
-  );
-
-  log(
-    "[INFO] Partition: " + partition
-  );
-
-  log(
-    "[INFO] Code Size: " +
-    code.length +
-    " bytes"
+    "[INFO] Cloud Compile Started"
   );
 
   setTimeout(()=>{
 
     log(
-      "[SUCCESS] Compile Finished"
-    );
-
-    log(
-      "[INFO] firmware.bin generated"
+      "[SUCCESS] firmware.bin generated"
     );
 
   },2000);
@@ -185,16 +194,6 @@ document.getElementById(
 document.getElementById(
   "uploadBtn"
 ).onclick = ()=>{
-
-  if(!port){
-
-    alert(
-      "Connect board first"
-    );
-
-    return;
-
-  }
 
   log(
     "[INFO] Upload Started"
@@ -210,18 +209,16 @@ document.getElementById(
 
 };
 
-/* DOWNLOAD BIN */
+/* DOWNLOAD */
 
 document.getElementById(
   "downloadBtn"
 ).onclick = ()=>{
 
-  log(
-    "[INFO] Downloading BIN..."
-  );
-
   const link =
-  document.createElement("a");
+  document.createElement(
+    "a"
+  );
 
   link.href =
   "../firmware/esp32/blink.bin";
@@ -229,19 +226,89 @@ document.getElementById(
   link.download =
   "firmware.bin";
 
-  document.body.appendChild(
-    link
-  );
-
   link.click();
-
-  document.body.removeChild(
-    link
-  );
 
   log(
     "[SUCCESS] BIN Download Started"
   );
+
+};
+
+/* CLEAR TERMINAL */
+
+document.getElementById(
+  "clearBtn"
+).onclick = ()=>{
+
+  terminal.textContent = "";
+
+};
+
+/* SEND SERIAL DATA */
+
+document.getElementById(
+  "sendBtn"
+).onclick = async ()=>{
+
+  if(!writer){
+
+    alert(
+      "Connect board first"
+    );
+
+    return;
+
+  }
+
+  const text =
+  document.getElementById(
+    "serialInput"
+  ).value;
+
+  const encoder =
+  new TextEncoder();
+
+  await writer.write(
+    encoder.encode(
+      text + "\n"
+    )
+  );
+
+  log(
+    "[TX] " + text
+  );
+
+  document.getElementById(
+    "serialInput"
+  ).value = "";
+
+};
+
+/* STOP MONITOR */
+
+document.getElementById(
+  "stopMonitorBtn"
+).onclick = async ()=>{
+
+  keepReading = false;
+
+  try{
+
+    if(reader){
+
+      await reader.cancel();
+
+    }
+
+    log(
+      "[INFO] Serial Monitor Stopped"
+    );
+
+  }catch(err){
+
+    console.error(err);
+
+  }
 
 };
 
