@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <title>MCU FIRM</title>
+
+  <link rel="stylesheet"
+        href="css/main.css">
+
+</head>
+
+<body>
+
+  <div class="sidebar">
+
+    <h1>MCU FIRM</h1>
+
+    <button onclick="loadPage('pages/flasher.html')">
+      Flasher
+    </button>
+
+    <button onclick="loadPage('pages/editor.html')">
+      Editor
+    </button>
+
+    <button onclick="loadPage('pages/settings.html')">
+      Settings
+    </button>
+
+  </div>
+
+  <iframe id="pageFrame"
+          src="pages/flasher.html">
+  </iframe>
+
+  <script src="js/main.js"></script>
+
+</body>
+</html>
