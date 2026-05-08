@@ -1,9 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
-  <title>MCU FIRM</title>
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>
+    MCU FIRM
+  </title>
 
   <link rel="stylesheet"
         href="css/main.css">
@@ -12,26 +19,54 @@
 
 <body>
 
+  <!-- SIDEBAR -->
+
   <div class="sidebar">
 
-    <h1>MCU FIRM</h1>
+    <div>
 
-    <button onclick="loadPage('pages/flasher.html')">
-      Flasher
-    </button>
+      <div class="logo">
 
-    <button onclick="loadPage('pages/editor.html')">
-      Editor
-    </button>
+        MCU FIRM
 
-    <button onclick="loadPage('pages/settings.html')">
-      Settings
-    </button>
+      </div>
+
+      <button onclick=
+      "loadPage('pages/flasher.html')">
+
+        Flasher
+
+      </button>
+
+      <button onclick=
+      "loadPage('pages/editor.html')">
+
+        Editor
+
+      </button>
+
+      <button onclick=
+      "loadPage('pages/settings.html')">
+
+        Settings
+
+      </button>
+
+    </div>
+
+    <div class="bottomText">
+
+      Browser Serial API Ready
+
+    </div>
 
   </div>
 
+  <!-- PAGE -->
+
   <iframe id="pageFrame"
           src="pages/flasher.html">
+
   </iframe>
 
   <script src="js/main.js"></script>
