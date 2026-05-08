@@ -51,12 +51,22 @@
           ESP32-CAM
         </option>
 
-        <option value="esp32:esp32:esp32wrover">
-          ESP32 Wrover Module
+      </select>
+
+      <!-- BAUD RATE -->
+
+      <select id="baudRate">
+
+        <option value="9600">
+          9600
         </option>
 
-        <option value="esp32:esp32:nodemcu-32s">
-          NodeMCU-32S
+        <option value="115200" selected>
+          115200
+        </option>
+
+        <option value="230400">
+          230400
         </option>
 
       </select>
@@ -77,16 +87,24 @@
           Minimal SPIFFS
         </option>
 
-        <option>
-          No OTA
-        </option>
-
       </select>
 
       <!-- BUTTONS -->
 
       <button id="connectBtn">
-        Connect Board
+        Connect
+      </button>
+
+      <button id="reconnectBtn">
+        Reconnect
+      </button>
+
+      <button id="stopMonitorBtn">
+        Stop Monitor
+      </button>
+
+      <button id="clearBtn">
+        Clear
       </button>
 
       <button id="verifyBtn">
@@ -113,7 +131,23 @@
 
     <!-- TERMINAL -->
 
-    <pre id="terminal"></pre>
+    <div class="terminalSection">
+
+      <pre id="terminal"></pre>
+
+      <div class="serialInputBar">
+
+        <input type="text"
+               id="serialInput"
+               placeholder="Send Serial Data">
+
+        <button id="sendBtn">
+          Send
+        </button>
+
+      </div>
+
+    </div>
 
   </div>
 
