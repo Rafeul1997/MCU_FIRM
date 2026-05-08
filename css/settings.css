@@ -7,14 +7,159 @@ body{
   color:white;
 
   font-family:
-  Inter,
   Arial,
   sans-serif;
 
 }
 
-.settingsPage{
+.settingsLayout{
 
-  padding:40px;
+  display:flex;
+
+  height:100vh;
+
+}
+
+/* SIDEBAR */
+
+.sidebar{
+
+  width:260px;
+
+  background:#111827;
+
+  padding:20px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:12px;
+
+}
+
+.sidebar h1{
+
+  margin-bottom:20px;
+
+}
+
+.sidebar button{
+
+  padding:14px;
+
+  border:none;
+
+  border-radius:12px;
+
+  background:#1e293b;
+
+  color:white;
+
+  cursor:pointer;
+
+  font-size:14px;
+
+  transition:0.2s;
+
+}
+
+.sidebar button:hover{
+
+  background:#2563eb;
+
+}
+
+/* CONTENT */
+
+.content{
+
+  flex:1;
+
+  padding:30px;
+
+  overflow:auto;
+
+}
+
+.section{
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:14px;
+
+  max-width:500px;
+
+}
+
+.hidden{
+
+  display:none;
+
+}
+
+label{
+
+  font-size:14px;
+
+}
+
+/* INPUTS */
+
+input,
+select,
+textarea{
+
+  padding:12px;
+
+  border:none;
+
+  border-radius:10px;
+
+  background:#1e293b;
+
+  color:white;
+
+  font-size:14px;
+
+}
+
+textarea{
+
+  min-height:120px;
+
+  resize:vertical;
+
+}
+
+/* BUTTONS */
+
+#saveSettingsBtn,
+#saveFirmwareBtn{
+
+  margin-top:20px;
+
+  padding:14px;
+
+  border:none;
+
+  border-radius:12px;
+
+  background:#2563eb;
+
+  color:white;
+
+  cursor:pointer;
+
+  font-size:14px;
+
+}
+
+#saveSettingsBtn:hover,
+#saveFirmwareBtn:hover{
+
+  background:#1d4ed8;
 
 }
