@@ -176,7 +176,8 @@ body{
 
 #sendBtn,
 #stopMonitorBtn,
-#clearBtn{
+#clearBtn,
+#reconnectBtn{
 
   padding:12px 20px;
 
@@ -207,6 +208,12 @@ body{
 #clearBtn{
 
   background:#ef4444;
+
+}
+
+#reconnectBtn{
+
+  background:#14b8a6;
 
 }
 
