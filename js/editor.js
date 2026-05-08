@@ -1,5 +1,9 @@
 let port;
 
+let reader;
+
+let keepReading = false;
+
 let editor;
 
 /* MONACO */
@@ -28,16 +32,14 @@ function(){
 value:
 `void setup(){
 
-  pinMode(2, OUTPUT);
+  Serial.begin(115200);
 
 }
 
 void loop(){
 
-  digitalWrite(2, HIGH);
-  delay(1000);
+  Serial.println("Hello ESP32");
 
-  digitalWrite(2, LOW);
   delay(1000);
 
 }`,
@@ -93,11 +95,15 @@ document.getElementById(
       "[SUCCESS] Board Connected"
     );
 
+    startSerialMonitor();
+
   }catch(err){
 
     log(
       "[ERROR] Connection Failed"
     );
+
+    console.error(err);
 
   }
 
@@ -238,3 +244,57 @@ document.getElementById(
   );
 
 };
+
+/* SERIAL MONITOR */
+
+async function startSerialMonitor(){
+
+  if(!port){
+
+    return;
+
+  }
+
+  keepReading = true;
+
+  const decoder =
+  new TextDecoderStream();
+
+  port.readable.pipeTo(
+    decoder.writable
+  );
+
+  reader =
+  decoder.readable.getReader();
+
+  log(
+    "[INFO] Serial Monitor Started"
+  );
+
+  while(keepReading){
+
+    const {
+      value,
+      done
+    } =
+    await reader.read();
+
+    if(done){
+
+      break;
+
+    }
+
+    if(value){
+
+      terminal.textContent +=
+      value;
+
+      terminal.scrollTop =
+      terminal.scrollHeight;
+
+    }
+
+  }
+
+}
