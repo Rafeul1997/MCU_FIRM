@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <link rel="stylesheet"
+        href="../css/flasher.css">
+
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- LEFT -->
+
+    <div class="panel">
+
+      <h1>
+        Firmware Flasher
+      </h1>
+
+      <label>
+        Board Select
+      </label>
+
+      <select id="boardSelect">
+
+        <option>
+          ESP32
+        </option>
+
+        <option>
+          Arduino
+        </option>
+
+      </select>
+
+      <label>
+        Firmware Category
+      </label>
+
+      <select id="categorySelect">
+
+        <option>
+          Blink
+        </option>
+
+      </select>
+
+      <label>
+        Firmware
+      </label>
+
+      <select id="firmwareSelect">
+
+        <option>
+          ESP32 Blink
+        </option>
+
+      </select>
+
+      <button id="connectBtn">
+
+        Connect Board
+
+      </button>
+
+      <button id="addFirmwareBtn">
+
+        Add Firmware
+
+      </button>
+
+    </div>
+
+    <!-- RIGHT -->
+
+    <div class="panel">
+
+      <h1>
+        Upload Status
+      </h1>
+
+      <button id="flashBtn">
+
+        Upload Firmware
+
+      </button>
+
+      <div class="progressHeader">
+
+        <span>
+          Upload Progress
+        </span>
+
+        <span id="progressText">
+          0%
+        </span>
+
+      </div>
+
+      <div class="progressBox">
+
+        <div id="progressBar"></div>
+
+      </div>
+
+      <pre id="log"></pre>
+
+    </div>
+
+  </div>
+
+  <script src="../js/flasher.js"></script>
+
+</body>
+</html>
