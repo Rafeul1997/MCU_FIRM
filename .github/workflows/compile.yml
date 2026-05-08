@@ -1,0 +1,97 @@
+name: MCU FIRM Compile
+
+on:
+
+  workflow_dispatch:
+
+    inputs:
+
+      board:
+
+        description: "Board Type"
+
+        required: true
+
+        default: "esp32"
+
+      sketch:
+
+        description: "Sketch File"
+
+        required: true
+
+        default: "sketch.ino"
+
+jobs:
+
+  compile:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # CHECKOUT
+
+      - name: Checkout Repository
+
+        uses: actions/checkout@v4
+
+      # ARDUINO CLI
+
+      - name: Install Arduino CLI
+
+        uses: arduino/setup-arduino-cli@v2
+
+      # ESP32 CORE
+
+      - name: Install ESP32 Core
+
+        run: |
+
+          arduino-cli config init
+
+          arduino-cli core update-index
+
+          arduino-cli core install esp32:esp32
+
+      # CREATE BUILD FOLDER
+
+      - name: Create Build Directory
+
+        run: |
+
+          mkdir build
+
+      # COMPILE
+
+      - name: Compile Firmware
+
+        run: |
+
+          arduino-cli compile \
+
+          --fqbn esp32:esp32:esp32 \
+
+          --output-dir build \
+
+          ${{ github.event.inputs.sketch }}
+
+      # SHOW FILES
+
+      - name: List Build Files
+
+        run: |
+
+          ls build
+
+      # UPLOAD BIN
+
+      - name: Upload Firmware Artifact
+
+        uses: actions/upload-artifact@v4
+
+        with:
+
+          name: firmware-bin
+
+          path: build/
