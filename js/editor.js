@@ -25,6 +25,13 @@ require(
 ["vs/editor/editor.main"],
 function(){
 
+  /* LOAD SAVED CODE */
+
+  const savedCode =
+  localStorage.getItem(
+    "mcuFirmEditorCode"
+  );
+
   editor = monaco.editor.create(
 
     document.getElementById(
@@ -34,6 +41,8 @@ function(){
     {
 
 value:
+savedCode ||
+
 `void setup(){
 
   Serial.begin(115200);
@@ -52,11 +61,27 @@ void loop(){
 
       theme:"vs-dark",
 
-      automaticLayout:true
+      automaticLayout:true,
+
+      fontSize:14
 
     }
 
   );
+
+  /* AUTO SAVE */
+
+  editor.onDidChangeModelContent(()=>{
+
+    localStorage.setItem(
+
+      "mcuFirmEditorCode",
+
+      editor.getValue()
+
+    );
+
+  });
 
 });
 
@@ -239,6 +264,16 @@ document.getElementById(
     "[INFO] Cloud Compile Started"
   );
 
+  /* SAVE CURRENT CODE */
+
+  localStorage.setItem(
+
+    "mcuFirmEditorCode",
+
+    editor.getValue()
+
+  );
+
   setTimeout(()=>{
 
     log(
@@ -269,7 +304,7 @@ document.getElementById(
 
 };
 
-/* DOWNLOAD */
+/* DOWNLOAD BIN */
 
 document.getElementById(
   "downloadBtn"
@@ -320,7 +355,7 @@ document.getElementById(
 
   }
 
-  const text =
+  let text =
   document.getElementById(
     "serialInput"
   ).value;
@@ -329,9 +364,11 @@ document.getElementById(
   new TextEncoder();
 
   await writer.write(
+
     encoder.encode(
       text + "\n"
     )
+
   );
 
   log(
@@ -344,7 +381,7 @@ document.getElementById(
 
 };
 
-/* STOP MONITOR */
+/* STOP SERIAL MONITOR */
 
 document.getElementById(
   "stopMonitorBtn"
