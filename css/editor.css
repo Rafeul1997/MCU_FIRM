@@ -41,7 +41,8 @@ body{
 
 }
 
-.topBar select{
+.topBar select,
+.topBar button{
 
   padding:12px;
 
@@ -57,19 +58,9 @@ body{
 
 .topBar button{
 
-  padding:12px 18px;
-
-  border:none;
-
-  border-radius:12px;
-
   background:#2563eb;
 
-  color:white;
-
   cursor:pointer;
-
-  transition:0.2s;
 
 }
 
@@ -85,21 +76,21 @@ body{
 
 }
 
-#uploadBtn:hover{
-
-  background:#d97706;
-
-}
-
 #downloadBtn{
 
   background:#10b981;
 
 }
 
-#downloadBtn:hover{
+#clearBtn{
 
-  background:#059669;
+  background:#ef4444;
+
+}
+
+#stopMonitorBtn{
+
+  background:#9333ea;
 
 }
 
@@ -113,9 +104,21 @@ body{
 
 /* TERMINAL */
 
+.terminalSection{
+
+  height:240px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  border-top:1px solid #1e293b;
+
+}
+
 #terminal{
 
-  height:180px;
+  flex:1;
 
   margin:0;
 
@@ -129,8 +132,52 @@ body{
 
   font-size:13px;
 
-  border-top:1px solid #1e293b;
-
   white-space:pre-wrap;
+
+}
+
+/* SERIAL INPUT */
+
+.serialInputBar{
+
+  display:flex;
+
+  gap:10px;
+
+  padding:10px;
+
+  background:#111827;
+
+}
+
+#serialInput{
+
+  flex:1;
+
+  padding:12px;
+
+  border:none;
+
+  border-radius:10px;
+
+  background:#1e293b;
+
+  color:white;
+
+}
+
+#sendBtn{
+
+  padding:12px 20px;
+
+  border:none;
+
+  border-radius:10px;
+
+  background:#2563eb;
+
+  color:white;
+
+  cursor:pointer;
 
 }
