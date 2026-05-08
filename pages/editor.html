@@ -3,13 +3,15 @@
 
 <head>
 
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
   <link rel="stylesheet"
         href="../css/editor.css">
 
-  <script src=
-  "https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/loader.js">
-
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/loader.js"></script>
 
 </head>
 
@@ -17,19 +19,75 @@
 
   <div class="editorContainer">
 
+    <!-- TOP BAR -->
+
     <div class="topBar">
 
-      <button>
+      <select id="boardSelect">
+
+        <option value="esp32">
+          ESP32
+        </option>
+
+        <option value="esp32s3">
+          ESP32-S3
+        </option>
+
+        <option value="esp8266">
+          ESP8266
+        </option>
+
+        <option value="arduino_uno">
+          Arduino UNO
+        </option>
+
+      </select>
+
+      <select id="partitionSelect">
+
+        <option>
+          Default 4MB with SPIFFS
+        </option>
+
+        <option>
+          Huge APP
+        </option>
+
+        <option>
+          Minimal SPIFFS
+        </option>
+
+        <option>
+          No OTA
+        </option>
+
+      </select>
+
+      <button id="connectBtn">
+        Connect Board
+      </button>
+
+      <button id="verifyBtn">
         Verify
       </button>
 
-      <button>
+      <button id="compileBtn">
+        Compile
+      </button>
+
+      <button id="uploadBtn">
         Upload
       </button>
 
     </div>
 
+    <!-- EDITOR -->
+
     <div id="editor"></div>
+
+    <!-- TERMINAL -->
+
+    <pre id="terminal"></pre>
 
   </div>
 
