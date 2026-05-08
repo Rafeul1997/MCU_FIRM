@@ -23,7 +23,7 @@
 
     <div class="topBar">
 
-      <!-- BOARD SELECT -->
+      <!-- BOARD -->
 
       <select id="boardSelect">
 
@@ -39,21 +39,13 @@
           ESP32-C3 Dev Module
         </option>
 
-        <option value="esp32:esp32:esp32c6">
-          ESP32-C6 Dev Module
-        </option>
-
-        <option value="esp32:esp32:esp32h2">
-          ESP32-H2 Dev Module
-        </option>
-
         <option value="esp32:esp32:esp32cam">
           ESP32-CAM
         </option>
 
       </select>
 
-      <!-- BAUD RATE -->
+      <!-- BAUD -->
 
       <select id="baudRate">
 
@@ -99,10 +91,6 @@
         Reconnect
       </button>
 
-      <button id="stopMonitorBtn">
-        Stop Monitor
-      </button>
-
       <button id="clearBtn">
         Clear
       </button>
@@ -140,6 +128,10 @@
         <input type="text"
                id="serialInput"
                placeholder="Send Serial Data">
+
+        <button id="stopMonitorBtn">
+          Stop
+        </button>
 
         <button id="sendBtn">
           Send
